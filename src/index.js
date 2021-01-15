@@ -2,7 +2,11 @@
 //APIS
 const imgUrl = "https://dog.ceo/api/breeds/image/random/4" 
 const breedUrl = 'https://dog.ceo/api/breeds/list/all' 
-let allDogs = []
+
+//loaders
+addBreeds()
+addImages()
+addEventListeners()
 
 //FETCHES
 function addImages() {
@@ -24,7 +28,7 @@ function addBreeds() {
 //GLOBAL PARENTS 
 let dogImages = document.querySelector('#dog-image-container')
 let ul = document.querySelector('#dog-breeds')
-
+let allDogs = []
 
 //TO THE DOM 
 function domImages(images){
@@ -62,9 +66,7 @@ function addEventListeners(){
     let select = document.querySelector('select')
     select.addEventListener('change', handleChange)
 }
-addBreeds()
-addImages()
-addEventListeners()
+
 
 // Add your code here
 // let formData = {
