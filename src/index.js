@@ -2,6 +2,7 @@
 //APIS
 const imgUrl = "https://dog.ceo/api/breeds/image/random/4" 
 const breedUrl = 'https://dog.ceo/api/breeds/list/all' 
+let allDogs = []
 
 //FETCHES
 function addImages() {
@@ -13,8 +14,11 @@ function addImages() {
 function addBreeds() {
     fetch(breedUrl)
         .then(response => response.json())
-        .then(breed => dogBreeds(breed.message))
-} 
+        .then(breeds => {
+            let allDogs = Object.keys(breeds.message)
+            allDogs.forEach(dog => dogBreeds(dog))
+        })
+    }
 //function to add images to the page 
 
 //GLOBAL PARENTS 
@@ -27,31 +31,40 @@ function domImages(images){
     for (const element of images) { 
         let img = document.createElement('img')
         img.src = element
+        img.style.width = '200px'
         dogImages.appendChild(img)
     } 
 }
 
-function dogBreeds(breeds) {
-    for (const key in breeds) {
+function dogBreeds(breed) {
         let li = document.createElement('li')
-        li.textContent = key
-        li.id = key
+        li.textContent = breed
+        li.id = breed
         ul.appendChild(li)
-        document.querySelector(`#${key}`).addEventListener('click', changeBreedColor)
-    }
+        allDogs.push(breed)
+        document.querySelector(`#${breed}`).addEventListener('click', changeBreedColor)
 }
 
 //handles change the breed color
 function changeBreedColor(e) {
     let breed = e.target
-    breed.style.color = "blue"
+    breed.style.color = "cyan"
 }
 
+function handleChange(e) {
+    let filteredDogs = allDogs.filter(breed => breed.startsWith(e.target.value))
+    ul.innerHTML = ''
+    filteredDogs.forEach(breed => dogBreeds(breed)) 
+}
 
 //listeners 
-document.querySelector('#breed-dropdown').addEventListener("change", dogBreeds)
+function addEventListeners(){
+    let select = document.querySelector('select')
+    select.addEventListener('change', handleChange)
+}
 addBreeds()
 addImages()
+addEventListeners()
 
 // Add your code here
 // let formData = {
