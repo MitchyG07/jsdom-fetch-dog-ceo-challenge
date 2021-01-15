@@ -31,27 +31,13 @@ function domImages(images){
     } 
 }
 
-function dogBreeds(breeds, e) {
-    let selection = e.target.value
-    if (selection) {
-        for (const key in breeds) {
-            if (key.char[0] === selection) {
-                let li = document.createElement('li')
-                li.textContent = key
-                li.id = key
-                ul.appendChild(li)
-                document.querySelector(`#${key}`).addEventListener('click', changeBreedColor)
-            }
-        }
-    }   
-    else {
-        for (const key in breeds) {
-            let li = document.createElement('li')
-            li.textContent = key
-            li.id = key
-            ul.appendChild(li)
-            document.querySelector(`#${key}`).addEventListener('click', changeBreedColor)
-        }
+function dogBreeds(breeds) {
+    for (const key in breeds) {
+        let li = document.createElement('li')
+        li.textContent = key
+        li.id = key
+        ul.appendChild(li)
+        document.querySelector(`#${key}`).addEventListener('click', changeBreedColor)
     }
 }
 
